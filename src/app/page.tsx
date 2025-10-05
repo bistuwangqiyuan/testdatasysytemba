@@ -14,6 +14,34 @@ import {
 } from 'lucide-react'
 
 export default function HomePage() {
+  // 结构化数据
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "光伏关断器实验数据管理系统",
+    "description": "专业的光伏关断器实验数据管理与分析平台，提供实时监控、实验仿真、数据分析等功能",
+    "url": "https://testdatasysytemba.netlify.app",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "CNY"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "光伏关断器实验数据管理系统"
+    },
+    "featureList": [
+      "实时数据监控",
+      "实验仿真",
+      "数据分析",
+      "文件管理",
+      "异常检测",
+      "报表生成"
+    ]
+  }
+
   const features = [
     {
       icon: Activity,
@@ -57,7 +85,15 @@ export default function HomePage() {
   ]
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <>
+      {/* 结构化数据 */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData),
+        }}
+      />
+      <div className="min-h-screen relative overflow-hidden">
       {/* Background effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-purple-900/20" />
       <div className="absolute inset-0">
@@ -155,6 +191,7 @@ export default function HomePage() {
 
       {/* Bottom gradient */}
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
-    </div>
+      </div>
+    </>
   )
 }
