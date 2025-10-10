@@ -2,37 +2,38 @@ import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://testdatasysytemba.netlify.app'
+  const currentDate = new Date()
   
   return [
     {
       url: baseUrl,
-      lastModified: new Date(),
+      lastModified: currentDate,
       changeFrequency: 'daily',
-      priority: 1,
+      priority: 1.0,
     },
     {
       url: `${baseUrl}/dashboard`,
-      lastModified: new Date(),
+      lastModified: currentDate,
       changeFrequency: 'hourly',
-      priority: 0.9,
+      priority: 0.95,
     },
     {
       url: `${baseUrl}/simulation`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
+      lastModified: currentDate,
+      changeFrequency: 'daily',
+      priority: 0.85,
     },
     {
       url: `${baseUrl}/data-management`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
+      lastModified: currentDate,
+      changeFrequency: 'daily',
+      priority: 0.85,
     },
     {
       url: `${baseUrl}/analysis`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
+      lastModified: currentDate,
+      changeFrequency: 'daily',
+      priority: 0.85,
     },
   ]
 }

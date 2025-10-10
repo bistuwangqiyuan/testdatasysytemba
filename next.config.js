@@ -8,29 +8,39 @@ const nextConfig = {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    minimumCacheTTL: 60,
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 
   // Compression
   compress: true,
   
-  // Performance optimizations
-  // swcMinify: true, // Removed as it's deprecated in Next.js 15
-  
   // SEO optimizations
   poweredByHeader: false,
   generateEtags: true,
   
-  // Experimental features for better performance
+  // Performance optimizations
   experimental: {
-    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
+    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons', 'recharts', 'framer-motion'],
+    scrollRestoration: true,
   },
 
-  // Headers for SEO and security
+  // Compiler optimizations
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production' ? {
+      exclude: ['error', 'warn'],
+    } : false,
+  },
+
+  // Headers for SEO, security, and performance
   async headers() {
     return [
       {
-        source: '/(.*)',
+        source: '/:path*',
         headers: [
+          // Security headers
           {
             key: 'X-Frame-Options',
             value: 'DENY',
@@ -40,21 +50,73 @@ const nextConfig = {
             value: 'nosniff',
           },
           {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block',
+          },
+          {
             key: 'Referrer-Policy',
             value: 'strict-origin-when-cross-origin',
           },
           {
             key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()',
+            value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
+          },
+          // Performance headers
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on',
+          },
+        ],
+      },
+      // Static assets caching
+      {
+        source: '/favicon.ico',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
           },
         ],
       },
       {
-        source: '/api/(.*)',
+        source: '/:all*(svg|jpg|jpeg|png|webp|avif|gif|ico)',
         headers: [
           {
             key: 'Cache-Control',
-            value: 'no-store, max-age=0',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/_next/static/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // API routes - no caching
+      {
+        source: '/api/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-store, no-cache, must-revalidate, max-age=0',
+          },
+        ],
+      },
+      // Manifest and service worker
+      {
+        source: '/manifest.json',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=604800, must-revalidate',
+          },
+          {
+            key: 'Content-Type',
+            value: 'application/manifest+json',
           },
         ],
       },
@@ -66,6 +128,11 @@ const nextConfig = {
     return [
       {
         source: '/home',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/index.html',
         destination: '/',
         permanent: true,
       },

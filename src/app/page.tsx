@@ -14,32 +14,92 @@ import {
 } from 'lucide-react'
 
 export default function HomePage() {
-  // 结构化数据
-  const structuredData = {
+  // 结构化数据 - 软件应用
+  const softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "光伏关断器实验数据管理系统",
-    "description": "专业的光伏关断器实验数据管理与分析平台，提供实时监控、实验仿真、数据分析等功能",
+    "alternateName": "光伏数据系统",
+    "description": "专业的光伏关断器实验数据管理与分析平台，提供实时监控、实验仿真、数据分析等功能。支持批量数据导入、智能清洗、异常检测，助力光伏设备研发与优化。",
     "url": "https://testdatasysytemba.netlify.app",
     "applicationCategory": "BusinessApplication",
-    "operatingSystem": "Web Browser",
+    "applicationSubCategory": "Data Management & Analysis",
+    "operatingSystem": "Web Browser, Any",
+    "browserRequirements": "Requires JavaScript. Requires HTML5.",
     "offers": {
       "@type": "Offer",
       "price": "0",
-      "priceCurrency": "CNY"
+      "priceCurrency": "CNY",
+      "availability": "https://schema.org/InStock"
     },
     "author": {
+      "@type": "Organization",
+      "name": "光伏关断器实验数据管理系统",
+      "url": "https://testdatasysytemba.netlify.app"
+    },
+    "publisher": {
       "@type": "Organization",
       "name": "光伏关断器实验数据管理系统"
     },
     "featureList": [
-      "实时数据监控",
-      "实验仿真",
-      "数据分析",
-      "文件管理",
-      "异常检测",
-      "报表生成"
+      "实时数据监控与设备状态展示",
+      "光伏关断器实验仿真",
+      "多维度数据分析与趋势预测",
+      "批量数据文件导入与管理",
+      "智能异常检测与告警",
+      "专业报表生成与导出"
+    ],
+    "screenshot": "https://testdatasysytemba.netlify.app/og-image.jpg",
+    "softwareVersion": "1.0.0",
+    "datePublished": "2025-01-01",
+    "dateModified": "2025-10-05",
+    "inLanguage": "zh-CN"
+  }
+
+  // 组织信息
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "光伏关断器实验数据管理系统",
+    "url": "https://testdatasysytemba.netlify.app",
+    "logo": "https://testdatasysytemba.netlify.app/og-image.jpg",
+    "description": "专业的光伏关断器实验数据管理与分析平台",
+    "sameAs": [
+      "https://testdatasysytemba.netlify.app"
     ]
+  }
+
+  // 面包屑导航
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "首页",
+        "item": "https://testdatasysytemba.netlify.app"
+      }
+    ]
+  }
+
+  // 网站信息
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "光伏关断器实验数据管理系统",
+    "alternateName": "光伏数据系统",
+    "url": "https://testdatasysytemba.netlify.app",
+    "description": "专业的光伏关断器实验数据管理与分析平台",
+    "inLanguage": "zh-CN",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://testdatasysytemba.netlify.app/search?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
   }
 
   const features = [
@@ -86,11 +146,32 @@ export default function HomePage() {
 
   return (
     <>
-      {/* 结构化数据 */}
+      {/* 结构化数据 - 软件应用 */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(structuredData),
+          __html: JSON.stringify(softwareSchema),
+        }}
+      />
+      {/* 结构化数据 - 组织信息 */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organizationSchema),
+        }}
+      />
+      {/* 结构化数据 - 面包屑导航 */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema),
+        }}
+      />
+      {/* 结构化数据 - 网站信息 */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(websiteSchema),
         }}
       />
       <div className="min-h-screen relative overflow-hidden">

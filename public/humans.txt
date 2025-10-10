@@ -1,0 +1,10 @@
+/* TEAM */
+Developer: 光伏关断器实验数据管理系统团队
+Site: https://testdatasysytemba.netlify.app
+Location: China
+
+/* SITE */
+Last update: 2025/10/05
+Standards: HTML5, CSS3, ES2022
+Components: Next.js 14, React 18, TypeScript, Tailwind CSS
+Software: Visual Studio Code, Git
