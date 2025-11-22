@@ -11,3 +11,4 @@
   <path d="M 30 55 L 50 70 L 70 55" stroke="url(#grad1)" stroke-width="4" fill="none" stroke-linecap="round"/>
   <rect x="48" y="70" width="4" height="15" fill="url(#grad1)"/>
 </svg>
+

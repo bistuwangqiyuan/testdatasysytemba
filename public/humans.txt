@@ -8,3 +8,4 @@ Last update: 2025/10/05
 Standards: HTML5, CSS3, ES2022
 Components: Next.js 14, React 18, TypeScript, Tailwind CSS
 Software: Visual Studio Code, Git
+
