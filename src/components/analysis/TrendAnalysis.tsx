@@ -29,7 +29,9 @@ export default function TrendAnalysis({ filters }: Props) {
   })
 
   useEffect(() => {
-    generateTrendData()
+    if (filters?.dateRange?.start && filters?.dateRange?.end) {
+      generateTrendData()
+    }
   }, [filters])
 
   const generateTrendData = () => {
@@ -149,7 +151,6 @@ export default function TrendAnalysis({ filters }: Props) {
                   strokeWidth={2}
                   dot={false}
                   name="功率 (W)"
-                  yAxisId="right"
                 />
               )}
             </LineChart>

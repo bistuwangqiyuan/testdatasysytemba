@@ -26,24 +26,34 @@ export default function AnalysisSummary({ filters }: Props) {
   })
 
   useEffect(() => {
-    fetchSummaryStats()
+    if (filters?.dateRange?.start && filters?.dateRange?.end) {
+      fetchSummaryStats()
+    }
   }, [filters])
 
   const fetchSummaryStats = async () => {
     try {
       // Fetch data points count
-      const { count: dataCount } = await supabase
+      const { count: dataCount, error: dataError } = await supabase
         .from('experiment_data')
         .select('*', { count: 'exact', head: true })
         .gte('timestamp', filters.dateRange.start.toISOString())
         .lte('timestamp', filters.dateRange.end.toISOString())
 
+      if (dataError) {
+        console.error('Error fetching data count:', dataError)
+      }
+
       // Fetch anomaly count
-      const { count: anomalyCount } = await supabase
+      const { count: anomalyCount, error: anomalyError } = await supabase
         .from('anomaly_records')
         .select('*', { count: 'exact', head: true })
         .gte('detected_at', filters.dateRange.start.toISOString())
         .lte('detected_at', filters.dateRange.end.toISOString())
+
+      if (anomalyError) {
+        console.error('Error fetching anomaly count:', anomalyError)
+      }
 
       // Mock efficiency and trend for demo
       const avgEfficiency = 85 + Math.random() * 10
@@ -57,6 +67,13 @@ export default function AnalysisSummary({ filters }: Props) {
       })
     } catch (error) {
       console.error('Error fetching summary stats:', error)
+      // Set default values on error
+      setStats({
+        totalDataPoints: 0,
+        anomalyCount: 0,
+        avgEfficiency: 0,
+        trendDirection: 'stable',
+      })
     }
   }
 
@@ -111,7 +128,9 @@ export default function AnalysisSummary({ filters }: Props) {
               <p className="text-2xl font-bold">{card.value}</p>
             </div>
             <div className={`p-3 rounded-lg ${card.bgColor}`}>
-              <card.icon className={`w-6 h-6 bg-gradient-to-r ${card.color} text-white`} />
+              <div className={`w-6 h-6 bg-gradient-to-r ${card.color} flex items-center justify-center rounded`}>
+                <card.icon className="w-5 h-5 text-white" />
+              </div>
             </div>
           </div>
         </motion.div>

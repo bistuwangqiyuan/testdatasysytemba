@@ -32,7 +32,9 @@ export default function AnomalyDetection({ filters }: Props) {
   })
 
   useEffect(() => {
-    generateAnomalies()
+    if (filters?.dateRange?.start && filters?.dateRange?.end) {
+      generateAnomalies()
+    }
   }, [filters])
 
   const generateAnomalies = () => {

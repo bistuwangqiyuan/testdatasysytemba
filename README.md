@@ -198,6 +198,10 @@ generateReport(filters: ReportFilters): Promise<Blob>
 - [ ] 优化移动端体验
 - [ ] 添加多语言支持
 - [ ] 集成 AI 分析功能
+- [ ] (2025-11-25) 修复数据分析页客户端异常并改用真实数据源
+
+### Discovered During Work
+- 暂无
 
 ## 🤝 贡献指南
 
